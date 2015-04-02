@@ -1,28 +1,45 @@
 require_relative 'timesheetmodel'
+require 'fileutils'
 
 RSpec.describe Project do
 
   before do
-
+    @Project = Project
+    @project = Project.new(description: "Create Timesheet app", total_time: DateTime.now)
+    @project2 = Project.new(description: "project2", total_time: DateTime.now, current: true)
+    @project_list = [@project, @project2]
    end
 
   describe "Project" do
-    it "has a description" do
-      expect(@task.description).to eq("Hello World")
+    it "lists all" do
+      expect(@Project.list[0].description).to eq(@project_list[0].description)
     end
-    it "is not completed" do
-      expect(@task.completed).to eq(false)
+    it "adds new project" do
+      @Project.add("New")
+      all_projects = @Project.list
+      expect(all_projects.select{|project| project.description == "New"}[0].description).to eq("New")
     end
-    it "has a creation date" do
-      expect(@task.creation_date.class).to eq(DateTime)
-    end
-    # it "has a completed date" do
-    #   expect(@task.completion_date.class).to eq(DateTime)
+    # it "deletes a project" do
+    #   expect(@Project.delete).to eq(DateTime)
     # end
-    it "can be created complete" do
-      @task = Task.new(description: "Hihi", completed: true)
-      expect(@task.completed).to eq(true)
+    it "uses a project" do
+      @Project.use("Create Timesheet app")
+      expect(@Project.current.description).to eq(@project_list[0].description)
     end
+    it "returns the current project" do
+      @Project.save(projects: @project_list)
+      expect(@Project.current.description).to eq(@project_list[1].description)
+    end
+    # it "the current project starts" do
+    #   expect(@project.start).to eq(true)
+    # end
+    # it "the current project stops" do
+    #   expect(@project.stop).to eq(true)
+    # end
+    # it "returns the current project report" do
+    #   expect(@project.report).to eq(true)
+    # end
+
 
   end
 
