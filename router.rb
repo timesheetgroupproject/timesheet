@@ -10,8 +10,7 @@ class Router
     action = ""
     project_name = ""
 
-    #project = ProjectController.new(Project, TestView.new)
-    #current_project = CurrentProjectController.new(Project.current, TestView.new)
+
     project = ProjectController.new(Project, ProjectView.new)
     current_project = CurrentProjectController.new(Project.current, ProjectView.new)
 
