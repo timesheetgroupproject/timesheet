@@ -2,5 +2,10 @@
 - !ruby/object:Project
   description: fun
   total_time: 7.975101
-  current: true
+  current: false
   time_started: 2015-04-03 15:28:26.756426000 +13:00
+- !ruby/object:Project
+  description: fun2
+  total_time: 2.724918
+  current: true
+  time_started: 2015-04-03 15:52:44.610934000 +13:00
