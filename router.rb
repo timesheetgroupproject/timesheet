@@ -31,7 +31,6 @@ class Router
       when "project add" then project.add(project_name)
       when "project delete" then project.delete(project_name)
       when "project use" then project.use(project_name)
-      when "project report all" then project.report_all
       when "start" then current_project.start
       when "stop" then current_project.stop
       when "report" then current_project.report
