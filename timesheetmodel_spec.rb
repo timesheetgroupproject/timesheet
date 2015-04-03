@@ -12,6 +12,7 @@ RSpec.describe Project do
 
   describe "Project" do
     it "lists all" do
+      @Project.save_all(projects: @project_list)
       expect(@Project.list[0].description).to eq(@project_list[0].description)
     end
     it "adds new project" do
@@ -29,7 +30,7 @@ RSpec.describe Project do
       expect(@Project.current.description).to eq(@project_list[0].description)
     end
     it "returns the current project" do
-      @Project.save(projects: @project_list)
+      @Project.save_all(projects: @project_list)
       expect(@Project.current.description).to eq(@project_list[1].description)
     end
     it "the current project starts" do
