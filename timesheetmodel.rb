@@ -9,7 +9,7 @@ class Project
     @description = args[:description]
     @total_time = args.fetch(:total_time, 0.0)
     @current = args.fetch(:current, false)
-    @time_started = args.fetch(:time_started, nil)
+    @time_started = args.fetch(Time.parse(:time_started), nil)
 
   end
 
@@ -23,7 +23,6 @@ class Project
   end
 
   def stop # returns elapsed time in seconds as float.
-    puts @time_started
     @total_time += Time.now - @time_started
     self.class.save(project: self)
   end
