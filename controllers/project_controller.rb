@@ -6,7 +6,6 @@ class ProjectController
   end
 
   def list
-    p @model.list
     @view.list(@model.list)
   end
 
