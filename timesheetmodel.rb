@@ -10,7 +10,6 @@ class Project
     @total_time = args.fetch(:total_time, 0.0)
     @current = args.fetch(:current, false)
     @time_started = args.fetch(:time_started, nil)
-
   end
 
   def report
@@ -45,8 +44,7 @@ class Project
   end
 
   def self.use(project_name)
-    all_projects = list
-    all_projects = set_no_projects_current(all_projects)
+    all_projects = set_no_projects_current(list)
     project = all_projects.find { |project| project.description == project_name }
     project.current = true
     save_all(projects: all_projects)
@@ -66,21 +64,12 @@ class Project
   end
 
   def self.save(args)
-    file = args.fetch(:file_name, 'timesheet.yml')
     project_to_save = args[:project]
-
     delete(project_to_save.description)
-
-    projects = list
-
-    projects << project_to_save
-
-    save_all(projects: projects)
-
+    save_all(projects: list << project_to_save)
   end
 
   def self.save_all(args)
-    file = args.fetch(:file_name, 'timesheet.yml')
     projects = args[:projects]
     File.open('timesheet.yml', 'w') { |f| f.write(projects.to_yaml) }
   end
