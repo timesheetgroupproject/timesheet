@@ -9,7 +9,7 @@ class Project
     @description = args[:description]
     @total_time = args.fetch(:total_time, 0.0)
     @current = args.fetch(:current, false)
-    @time_started = args.fetch(:time_started, nil)
+    @time_started = args.fetch(Time.parse(:time_started), nil)
 
   end
 
@@ -17,12 +17,14 @@ class Project
     @total_time / 60
   end
 
-  def start(args)
+  def start(args = {})
     @time_started = args.fetch(:time, Time.now)
+    self.class.save(project: self)
   end
 
   def stop # returns elapsed time in seconds as float.
     @total_time += Time.now - @time_started
+    self.class.save(project: self)
   end
 
   def self.list
@@ -33,13 +35,13 @@ class Project
     all_projects = list
     new_project = Project.new(description: project_name)
     all_projects << new_project
-    save(projects: all_projects)
+    save_all(projects: all_projects)
   end
 
   def self.delete(project_name)
     all_projects = list
     all_projects.delete_if { |project| project.description == project_name }
-    save(projects: all_projects)
+    save_all(projects: all_projects)
   end
 
   def self.use(project_name)
@@ -47,7 +49,7 @@ class Project
     all_projects = set_no_projects_current(all_projects)
     project = all_projects.find { |project| project.description == project_name }
     project.current = true
-    save(projects: all_projects)
+    save_all(projects: all_projects)
   end
 
   def self.current
@@ -64,6 +66,20 @@ class Project
   end
 
   def self.save(args)
+    file = args.fetch(:file_name, 'timesheet.yml')
+    project_to_save = args[:project]
+
+    delete(project_to_save.description)
+
+    projects = list
+
+    projects << project_to_save
+
+    save_all(projects: projects)
+
+  end
+
+  def self.save_all(args)
     file = args.fetch(:file_name, 'timesheet.yml')
     projects = args[:projects]
     File.open('timesheet.yml', 'w') { |f| f.write(projects.to_yaml) }
