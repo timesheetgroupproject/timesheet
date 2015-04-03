@@ -6,6 +6,7 @@ class ProjectController
   end
 
   def list
+    p @model.list
     @view.list(@model.list)
   end
 
@@ -25,7 +26,7 @@ class ProjectController
   end
 
   def report_all
-    @view.report_all(@model.report_all)
+    @view.report_all(@model.list)
   end
 
   def error

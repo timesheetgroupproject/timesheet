@@ -1,14 +1,14 @@
 require_relative("./controllers/project_controller.rb")
 require_relative("./controllers/current_project_controller.rb")
-require_relative("./testmodel.rb")
-require_relative("./testview.rb")
+require_relative("./timesheetmodel.rb")
+require_relative("./project_view.rb")
 
 user_input = ARGV
 action = ""
 project_name = ""
 
-project = ProjectController.new(Timesheetmodel, TestView.new)
-current_project = CurrentProjectController.new(Timesheetmodel.new, TestView.new)
+project = ProjectController.new(Project, ProjectView.new)
+current_project = CurrentProjectController.new(Project.new({}), ProjectView.new)
 
 if user_input.count > 1
   action = "#{user_input.shift} #{user_input.shift}"
