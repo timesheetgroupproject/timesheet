@@ -1,11 +1,11 @@
 ---
 - !ruby/object:Project
-  description: fun
-  total_time: 7.975101
+  description: testing2
+  total_time: 0.0
   current: false
-  time_started: 2015-04-03 15:28:26.756426000 +13:00
+  time_started: 
 - !ruby/object:Project
-  description: fun3
-  total_time: 4.769156
+  description: testing
+  total_time: 6.564607
   current: true
-  time_started: 2015-04-03 15:57:18.636262000 +13:00
+  time_started: 2015-04-03 16:20:41.463541000 +13:00
