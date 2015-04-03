@@ -10,17 +10,12 @@ class Router
     action = ""
     project_name = ""
 
-
     project = ProjectController.new(Project, ProjectView.new)
     current_project = CurrentProjectController.new(Project.current, ProjectView.new)
 
     if user_input.count > 1
       action = "#{user_input.shift} #{user_input.shift}"
       project_name = "#{user_input.shift}"
-      report_all = "#{action} #{project_name}"
-      if report_all == "project report all"
-        action = report_all
-      end
     else
       action = user_input.shift
     end

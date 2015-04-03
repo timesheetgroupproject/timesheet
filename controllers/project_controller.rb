@@ -24,14 +24,9 @@ class ProjectController
     @view.message("You have selected #{project_name}")
   end
 
-  def report_all
-    @view.report_all(@model.list)
-  end
-
   def error
     puts "No action"
   end
 
 end
 
-# project = ProjectController.new(Timesheetmodel.new, TestView.new)
