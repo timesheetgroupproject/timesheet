@@ -1,16 +1,16 @@
 ---
 - !ruby/object:Project
   description: project2
-  total_time: !ruby/object:DateTime 2015-04-03 16:09:22.582777000 +13:00
+  total_time: !ruby/object:DateTime 2015-04-03 16:17:52.235454000 +13:00
   current: true
   time_started: 
 - !ruby/object:Project
   description: Create Timesheet app
-  total_time: !ruby/object:DateTime 2015-04-03 16:09:22.584096000 +13:00
+  total_time: !ruby/object:DateTime 2015-04-03 16:17:52.236818000 +13:00
   current: false
-  time_started: !ruby/object:DateTime 2015-04-03 16:09:22.584120000 +13:00
+  time_started: !ruby/object:DateTime 2015-04-03 16:17:52.236843000 +13:00
 - !ruby/object:Project
   description: project
-  total_time: 1.015213
+  total_time: 1.014339
   current: false
-  time_started: 2015-04-03 16:09:23.601098000 +13:00
+  time_started: 2015-04-03 16:17:53.248608000 +13:00
