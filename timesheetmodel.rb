@@ -1,15 +1,28 @@
 require 'yaml'
-
+require 'date'
+require 'time'
 class Project
 
   attr_accessor :description, :total_time, :current, :time_started
 
   def initialize(args)
     @description = args[:description]
-    @total_time = args.fetch(:total_time, nil)
+    @total_time = args.fetch(:total_time, 0.0)
     @current = args.fetch(:current, false)
-    @time_started = args.fetch(:start_time, nil)
+    @time_started = args.fetch(:time_started, nil)
 
+  end
+
+  def report
+    @total_time / 60
+  end
+
+  def start(args)
+    @time_started = args.fetch(:time, Time.now)
+  end
+
+  def stop # returns elapsed time in seconds as float.
+    @total_time += Time.now - @time_started
   end
 
   def self.list
@@ -20,6 +33,12 @@ class Project
     all_projects = list
     new_project = Project.new(description: project_name)
     all_projects << new_project
+    save(projects: all_projects)
+  end
+
+  def self.delete(project_name)
+    all_projects = list
+    all_projects.delete_if { |project| project.description == project_name }
     save(projects: all_projects)
   end
 

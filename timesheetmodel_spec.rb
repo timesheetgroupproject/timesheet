@@ -19,9 +19,11 @@ RSpec.describe Project do
       all_projects = @Project.list
       expect(all_projects.select{|project| project.description == "New"}[0].description).to eq("New")
     end
-    # it "deletes a project" do
-    #   expect(@Project.delete).to eq(DateTime)
-    # end
+    it "deletes a project" do
+      @Project.delete("project2")
+      all_projects = @Project.list
+      expect(all_projects.find{|project| project.description == "project2"}).to eq(nil)
+    end
     it "uses a project" do
       @Project.use("Create Timesheet app")
       expect(@Project.current.description).to eq(@project_list[0].description)
@@ -30,15 +32,28 @@ RSpec.describe Project do
       @Project.save(projects: @project_list)
       expect(@Project.current.description).to eq(@project_list[1].description)
     end
-    # it "the current project starts" do
-    #   expect(@project.start).to eq(true)
-    # end
-    # it "the current project stops" do
-    #   expect(@project.stop).to eq(true)
-    # end
-    # it "returns the current project report" do
-    #   expect(@project.report).to eq(true)
-    # end
+    it "the current project starts" do
+      now = DateTime.now
+      @project.start(time: now)
+      expect(@project.time_started).to eq(now)
+    end
+    it "the current project stops" do
+
+      project = Project.new(description:"project")
+      project.start(time: Time.now)
+      sleep(1)
+      project.stop
+
+      expect(project.total_time).to be >(1)
+    end
+    it "returns the current project report" do
+      project = Project.new(description:"project")
+      project.start(time: Time.now)
+      sleep(1)
+      project.stop
+
+      expect(project.report).to be >(1/ 60.0)
+    end
 
 
   end
